@@ -17,7 +17,7 @@ app.get('/', async (req, res) => {
            user: data.user,
            hit: data.hit,
            uptime: data.uptime
-      };
+      });
     };
   });
 
