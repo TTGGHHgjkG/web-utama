@@ -4,7 +4,7 @@ const axios = require('axios');
 const app = express();
 const PORT = 3000;
 
-app.get('/os', async (req, res) => {
+app.get('/', async (req, res) => {
     try {
         // Lakukan permintaan ke api.xnd.me
         const response = await axios.get('https://web-app-bot-489f88bd8283.herokuapp.com/stats');
