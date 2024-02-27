@@ -13,9 +13,9 @@ app.get('/', async (req, res) => {
         const response = await axios.get('https://web-app-bot-489f88bd8283.herokuapp.com/get');
         const data = response.data.bot;
         res.render('index', {
-           chatpc: data.chatpc
-           user: data.user
-           hit: data.hit
+           chatpc: data.chatpc,
+           user: data.user,
+           hit: data.hit,
            uptime: data.uptime
       };
     };
