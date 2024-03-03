@@ -11,7 +11,7 @@ app.use(express.static('views'));
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 menit
-  max: 100, // Maksimal 100 requests per 15 menit
+  max: 10, // Maksimal 100 requests per 15 menit
   message: "Terlalu banyak permintaan, silahkan coba lagi setelah 15 menit.",
 });
 app.use(limiter);
