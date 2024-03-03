@@ -25,21 +25,23 @@ app.get('/', async (req, res) => {
 });
 
 app.get("/statistik", async (req, res) => {
-  const serverInfo = {
-    os: {
-      cpuCore: os.cpus().length,
-      cpuModel: os.cpus()[0].model,
-      uptime: os.uptime(),
-      totalMemory: (os.totalmem() / (1024 * 1024 * 1024)).toFixed(2) + " GB",
-      freeMemory: (os.freemem() / (1024 * 1024 * 1024)).toFixed(2) + " GB",
-      speed: os.cpus()[0].speed / 1000 + " GHz",
-    },
+  try {
+    const serverInfo = {
+      os: {
+        cpuCore: os.cpus().length,
+        cpuModel: os.cpus()[0].model,
+        uptime: os.uptime(),
+        totalMemory: (os.totalmem() / (1024 * 1024 * 1024)).toFixed(2) + " GB",
+        freeMemory: (os.freemem() / (1024 * 1024 * 1024)).toFixed(2) + " GB",
+        speed: (os.cpus()[0].speed / 1000).toFixed(2) + " GHz",
+      }
+    };
     res.json(serverInfo);
-    } catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({ error: 'Server utama telah mati' });
-    }
-  });
+  } catch (error) {
+      console.error('Error:', error);
+      res.status(500).json({ error: 'Server utama telah mati' });
+  }
+});
 
 app.get('/stats', async (req, res) => {
     try {
@@ -47,8 +49,8 @@ app.get('/stats', async (req, res) => {
         const data = response.data.os;
 
         const formattedData = {
-            CPUs: data.CPUs,
-            model: data.model,
+            CPUs: data.cpuCore,
+            model: data.cpuModel,
             uptime: data.uptime,
             totalMemory: data.totalMemory,
             freeMemory: data.freeMemory,
