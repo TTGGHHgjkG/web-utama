@@ -26,14 +26,17 @@ app.get('/', async (req, res) => {
 
 app.get("/statistik", async (req, res) => {
   try {
+    const cpuInfo = os.cpus()[0];
+    console.log('CPU Speed:', cpuInfo.speed);
+    
     const serverInfo = {
       os: {
         cpuCore: os.cpus().length,
-        cpuModel: os.cpus()[0].model,
+        cpuModel: cpuInfo.model,
         uptime: os.uptime(),
         totalMemory: (os.totalmem() / (1024 * 1024 * 1024)).toFixed(2) + " GB",
         freeMemory: (os.freemem() / (1024 * 1024 * 1024)).toFixed(2) + " GB",
-        speed: (os.cpus()[0].speed / 1000).toFixed(2) + " GHz",
+        speed: (cpuInfo.speed / 1000).toFixed(2) + " GHz",
       }
     };
     res.json(serverInfo);
