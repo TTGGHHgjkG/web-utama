@@ -34,7 +34,6 @@ app.get("/statistik", async (req, res) => {
       freeMemory: (os.freemem() / (1024 * 1024 * 1024)).toFixed(2) + " GB",
       speed: os.cpus()[0].speed / 1000 + " GHz",
     },
-  };
     res.json(serverInfo);
     } catch (error) {
         console.error('Error:', error);
