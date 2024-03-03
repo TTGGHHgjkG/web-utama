@@ -1,3 +1,4 @@
+const rateLimit = require('express-rate-limit');
 const express = require('express');
 const axios = require('axios');
 const os = require('os');
@@ -7,6 +8,13 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('json spaces', 2);
 app.use(express.static('views'));
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 menit
+  max: 100, // Maksimal 100 requests per 15 menit
+  message: "Terlalu banyak permintaan, silahkan coba lagi setelah 15 menit.",
+});
+app.use(limiter);
 
 app.get('/', async (req, res) => {
     try {
