@@ -1,5 +1,6 @@
 const express = require('express');
 const axios = require('axios');
+const os = require('os');
 const PORT = process.env.PORT || 3000;
 
 const app = express();
@@ -23,7 +24,25 @@ app.get('/', async (req, res) => {
     }
 });
 
-app.get('/tes', async (req, res) => {
+app.get("/statistik", async (req, res) => {
+  const serverInfo = {
+    os: {
+      cpuCore: os.cpus().length,
+      cpuModel: os.cpus()[0].model,
+      uptime: os.uptime(),
+      totalMemory: (os.totalmem() / (1024 * 1024 * 1024)).toFixed(2) + " GB",
+      freeMemory: (os.freemem() / (1024 * 1024 * 1024)).toFixed(2) + " GB",
+      speed: os.cpus()[0].speed / 1000 + " GHz",
+    },
+  };
+    res.json(serverInfo);
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Server utama telah mati' });
+    }
+  });
+
+app.get('/stats', async (req, res) => {
     try {
         const response = await axios.get('https://web-app-bot-489f88bd8283.herokuapp.com/stats');
         const data = response.data.os;
