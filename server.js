@@ -17,19 +17,25 @@ const limiter = rateLimit({
 app.use(limiter);
 
 app.get('/', async (req, res) => {
+    let data;
     try {
         const response = await axios.get('https://web-app-bot-489f88bd8283.herokuapp.com/get-api');
-        const data = response.data.bot;
-        res.render('index', {
-            chatpc: data.chatpc,
-            user: data.user,
-            hit: data.hit,
-            uptime: data.uptime
-        });
+        data = response.data.bot;
     } catch (error) {
         console.error('Error:', error);
-        res.redirect('https://drive.xinzuo.xyz')
+        data = {
+            chatpc: '', // Atur menjadi nilai default jika data tidak dapat diambil
+            user: '',
+            hit: '',
+            uptime: ''
+        };
     }
+    res.render('index', {
+        chatpc: data.chatpc,
+        user: data.user,
+        hit: data.hit,
+        uptime: data.uptime
+    });
 });
 
 app.get("/statistik", async (req, res) => {
