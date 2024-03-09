@@ -24,10 +24,10 @@ app.get('/', async (req, res) => {
     } catch (error) {
         console.error('Error:', error);
         data = {
-            chatpc: '', // Atur menjadi nilai default jika data tidak dapat diambil
-            user: '',
-            hit: '',
-            uptime: ''
+            chatpc: 'server error', // Atur menjadi nilai default jika data tidak dapat diambil
+            user: 'server error',
+            hit: 'server error',
+            uptime: 'server error'
         };
     }
     res.render('index', {
