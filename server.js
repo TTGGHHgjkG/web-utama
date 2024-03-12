@@ -38,7 +38,7 @@ app.get('/', async (req, res) => {
     });
 });
 
-app.get("/statistik", async (req, res) => {
+app.get("/stats", async (req, res) => {
   try {
     const cpuInfo = os.cpus()[0];
     console.log('CPU Speed:', cpuInfo.speed);
@@ -60,14 +60,14 @@ app.get("/statistik", async (req, res) => {
   }
 });
 
-app.get('/stats', async (req, res) => {
+app.get('/server-bot', async (req, res) => {
     try {
-        const response = await axios.get('https://web-app-bot-489f88bd8283.herokuapp.com/stats');
+        const response = await axios.get('https://web-app-bot-489f88bd8283.herokuapp.com/');
         const data = response.data.os;
 
         const formattedData = {
-            CPUs: data.cpuCore,
-            model: data.cpuModel,
+            CPUs: data.CPUs,
+            model: data.model,
             uptime: data.uptime,
             totalMemory: data.totalMemory,
             freeMemory: data.freeMemory,
